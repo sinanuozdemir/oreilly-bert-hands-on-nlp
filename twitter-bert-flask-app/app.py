@@ -1,5 +1,5 @@
 from flask import Flask
-from transformers import BertTokenizer, DistilBertForSequenceClassification
+from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 from flask import request
 from flask import jsonify
 import re
@@ -28,7 +28,7 @@ BERT_MODEL = 'distilbert-base-uncased'
 
 print("Loading tokenzier + model")
 
-bert_tokenizer = BertTokenizer.from_pretrained(BERT_MODEL)
+bert_tokenizer = DistilBertTokenizer.from_pretrained(BERT_MODEL)
 
 sequence_classification_model = DistilBertForSequenceClassification.from_pretrained(
     'notebooks/clf/results', num_labels=2,
