@@ -20,6 +20,8 @@ The Natural Language Processing with Next-Generation Transformer Architectures s
 
 [Information Retrieval with BERT](notebooks/information_retrieval.ipynb)
 
+[3rd Part BERT Models](notebooks/third_party_models.ipynb)
+
 ### Twitter Chrome Extension
 
 To run this requires some additional work
