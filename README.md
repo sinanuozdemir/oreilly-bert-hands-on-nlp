@@ -32,7 +32,7 @@ To run this requires some additional work
 2. [Install ngrok](https://dashboard.ngrok.com/get-started/setup) to generate a secure tunnel to your local app
 
 #### Running the App
-1. From the root directory, run `python3 twitter-bert-flask-app/app.py` to start your local flask app
+1. From the `twitter-bert-flask-app` directory, run `python app.py` to start your local flask app
 2. Test the app by  going to [http://localhost:5050/classify?tweet=this earthquake is causing such devastation](http://localhost:5050/classify?tweet=this earthquake is causing such devastation)
 3. Run ngrok to create a secure tunnel `ngrok http 5050`. This will make a random tunnel each time unless you pay for subdomains (I recommend it if you use ngrok frequently)
 4. In `twitter.js`, change `twitter-bert.ngrok.io` to whatever subdomain your ngrok has chosen on startup
