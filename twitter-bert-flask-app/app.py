@@ -1,5 +1,5 @@
 from flask import Flask
-from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
+from transformers import pipeline
 from flask import request
 from flask import jsonify
 import re
@@ -24,30 +24,16 @@ def clean_tweet(tweet):
 
 ######## copy/pasted preprocessing from the classification notebook ########
 
-BERT_MODEL = 'distilbert-base-uncased'
-
 print("Loading tokenzier + model")
 
-bert_tokenizer = DistilBertTokenizer.from_pretrained(BERT_MODEL)
-
-sequence_classification_model = DistilBertForSequenceClassification.from_pretrained(
-    'notebooks/clf/results', num_labels=2,
-    output_attentions = False, # Whether the model returns attentions weights.
-    output_hidden_states = False # Whether the model returns all hidden-states.
+pipe = pipeline(
+    "text-classification", '../notebooks/clf/results', tokenizer='distilbert-base-uncased',
+    return_all_scores=True
 )
-
 
 print("Loaded tokenzier + model!")
 
 # Helper function to use our fine-tuned model
-
-softmax = Softmax(dim=1)
-
-def get_probability_of_disaster(tweet):
-    cleaned_tweet = clean_tweet(tweet)
-    results = sequence_classification_model(bert_tokenizer.encode(cleaned_tweet, return_tensors='pt'))
-    probas = softmax(results.logits)
-    return float(probas[0][1])
 
 @app.route('/')
 def hello():
@@ -56,8 +42,10 @@ def hello():
 @app.route('/classify')
 def classify():
     tweet = request.args.get('tweet')
+    results = pipe(clean_tweet(tweet))[0]
+    print(results)
 
-    return jsonify(dict(tweet=tweet, probability=get_probability_of_disaster(tweet)))
+    return jsonify(dict(tweet=tweet, scores={result['label']: result['score'] for result in results}))
 
 
 

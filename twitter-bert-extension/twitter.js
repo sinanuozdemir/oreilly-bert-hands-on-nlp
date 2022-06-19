@@ -14,7 +14,7 @@ function _addBorderToTweets() {
     dataType: "json",
     success: function (result, status, xhr) {
       console.log(result);
-      if (result.probability >= 0.9) {
+      if (result.scores.DISASTER >= 0.9) {
         console.log('RED')
         obj.style.border = "thick solid #ff0000";  // RED
       }
