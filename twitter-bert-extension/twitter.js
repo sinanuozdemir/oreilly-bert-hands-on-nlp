@@ -13,7 +13,7 @@ function _addBorderToTweets() {
     async: false,
     dataType: "json",
     success: function (result, status, xhr) {
-      console.log(result);
+      console.log(result.scores.DISASTER);
       if (result.scores.DISASTER >= 0.9) {
         console.log('RED')
         obj.style.border = "thick solid #ff0000";  // RED
@@ -37,4 +37,5 @@ function _addBorderToTweets() {
 });
 }
 
-setInterval(_addBorderToTweets, 2000);  // run our ML code every 2 seconds
+setInterval(_addBorderToTweets, 5000);  // run our ML code every 2 seconds
+// _addBorderToTweets();
